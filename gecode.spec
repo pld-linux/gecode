@@ -92,11 +92,12 @@ done
 	--with-boost-include=%{_includedir}/boost
 
 %{__make}
-%{__make} doc
 %{__make} ChangeLog
 
 iconv --from=ISO-8859-1 --to=UTF-8 -o ChangeLog.new ChangeLog
 mv ChangeLog.new ChangeLog
+
+%{?with_doc:%{__make} doc}
 
 %install
 rm -rf $RPM_BUILD_ROOT
