@@ -6,12 +6,12 @@
 
 Summary:	Generic constraint development environment
 Name:		gecode
-Version:	4.2.1
+Version:	4.4.0
 Release:	1
 License:	MIT
 Group:		Libraries
 Source0:	http://www.gecode.org/download/%{name}-%{version}.7z
-# Source0-md5:	5a37a56647b1c593640ebd085bf4c066
+# Source0-md5:	c27e20608076a9d18d9a97d47aae92e5
 Patch0:		no_examples.patch
 URL:		http://www.gecode.org/
 BuildRequires:	automake
@@ -27,6 +27,8 @@ BuildRequires:	tex(dvips)
 BuildRequires:	tex(latex)
 %endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		sover	41
 
 %description
 Gecode is a toolkit for developing constraint-based systems and
@@ -85,6 +87,7 @@ done
 %build
 %{__aclocal}
 %{__autoconf}
+chmod +x configure
 %configure \
 	--disable-examples \
 	--enable-float-vars \
@@ -117,25 +120,25 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc ChangeLog LICENSE
 %attr(755,root,root) %{_libdir}/libgecodedriver.so.*.*
-%ghost %{_libdir}/libgecodedriver.so.36
+%ghost %{_libdir}/libgecodedriver.so.%{sover}
 %attr(755,root,root) %{_libdir}/libgecodeflatzinc.so.*.*
-%ghost %{_libdir}/libgecodeflatzinc.so.36
+%ghost %{_libdir}/libgecodeflatzinc.so.%{sover}
 %attr(755,root,root) %{_libdir}/libgecodefloat.so.*.*
-%ghost %{_libdir}/libgecodefloat.so.36
+%ghost %{_libdir}/libgecodefloat.so.%{sover}
 %attr(755,root,root) %{_libdir}/libgecodegist.so.*.*
-%ghost %{_libdir}/libgecodegist.so.36
+%ghost %{_libdir}/libgecodegist.so.%{sover}
 %attr(755,root,root) %{_libdir}/libgecodeint.so.*.*
-%ghost %{_libdir}/libgecodeint.so.36
+%ghost %{_libdir}/libgecodeint.so.%{sover}
 %attr(755,root,root) %{_libdir}/libgecodekernel.so.*.*
-%ghost %{_libdir}/libgecodekernel.so.36
+%ghost %{_libdir}/libgecodekernel.so.%{sover}
 %attr(755,root,root) %{_libdir}/libgecodeminimodel.so.*.*
-%ghost %{_libdir}/libgecodeminimodel.so.36
+%ghost %{_libdir}/libgecodeminimodel.so.%{sover}
 %attr(755,root,root) %{_libdir}/libgecodesearch.so.*.*
-%ghost %{_libdir}/libgecodesearch.so.36
+%ghost %{_libdir}/libgecodesearch.so.%{sover}
 %attr(755,root,root) %{_libdir}/libgecodeset.so.*.*
-%ghost %{_libdir}/libgecodeset.so.36
+%ghost %{_libdir}/libgecodeset.so.%{sover}
 %attr(755,root,root) %{_libdir}/libgecodesupport.so.*.*
-%ghost %{_libdir}/libgecodesupport.so.36
+%ghost %{_libdir}/libgecodesupport.so.%{sover}
 
 %files devel
 %defattr(644,root,root,755)
