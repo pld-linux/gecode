@@ -14,6 +14,7 @@ Source0:	http://www.gecode.org/download/%{name}-%{version}.7z
 # Source0-md5:	c27e20608076a9d18d9a97d47aae92e5
 Patch0:		no_examples.patch
 URL:		http://www.gecode.org/
+BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bison
 BuildRequires:	boost-devel
