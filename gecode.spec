@@ -3,6 +3,12 @@
 
 # Conditional build:
 %bcond_with	doc		# build doc
+%bcond_without	qt		# Qt support (qt4>4.3, qt5)
+%bcond_without	gist	# Gecode Interactive Search Tool
+
+%if %{without qt}
+%undefine	with_gist
+%endif
 
 Summary:	Generic constraint development environment
 Name:		gecode
@@ -22,6 +28,12 @@ BuildRequires:	flex >= 2.5.33
 BuildRequires:	graphviz
 BuildRequires:	p7zip-standalone
 BuildRequires:	qt4-build
+%if %{with qt}
+BuildRequires:	Qt5Core-devel
+BuildRequires:	Qt5Gui-devel
+BuildRequires:	Qt5PrintSupport-devel
+BuildRequires:	Qt5Widgets-devel
+%endif
 %if %{with doc}
 BuildRequires:	doxygen
 BuildRequires:	tex(dvips)
@@ -35,6 +47,14 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Gecode is a toolkit for developing constraint-based systems and
 applications. Gecode provides a constraint solver with
 state-of-the-art performance while being modular and extensible.
+
+%package gist
+Summary:	Gecode Interactive Search Tool
+Group:		Libraries
+Requires:	%{name} = %{version}-%{release}
+
+%description gist
+Gecode Interactive Search Tool.
 
 %package devel
 Summary:	Development files for %{name}
@@ -91,6 +111,9 @@ done
 chmod +x configure
 %configure \
 	--disable-examples \
+	--enable-mpfr \
+	%{__enable_disable qt} \
+	%{__enable_disable gist} \
 	--enable-float-vars \
 	--enable-leak-debug \
 	--with-boost-include=%{_includedir}/boost
@@ -126,8 +149,6 @@ rm -rf $RPM_BUILD_ROOT
 %ghost %{_libdir}/libgecodeflatzinc.so.%{sover}
 %attr(755,root,root) %{_libdir}/libgecodefloat.so.*.*
 %ghost %{_libdir}/libgecodefloat.so.%{sover}
-%attr(755,root,root) %{_libdir}/libgecodegist.so.*.*
-%ghost %{_libdir}/libgecodegist.so.%{sover}
 %attr(755,root,root) %{_libdir}/libgecodeint.so.*.*
 %ghost %{_libdir}/libgecodeint.so.%{sover}
 %attr(755,root,root) %{_libdir}/libgecodekernel.so.*.*
@@ -141,6 +162,13 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libgecodesupport.so.*.*
 %ghost %{_libdir}/libgecodesupport.so.%{sover}
 
+%if %{with gist}
+%files gist
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libgecodegist.so.*.*
+%ghost %{_libdir}/libgecodegist.so.%{sover}
+%endif
+
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/fzn-gecode
@@ -150,13 +178,16 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libgecodedriver.so
 %{_libdir}/libgecodeflatzinc.so
 %{_libdir}/libgecodefloat.so
-%{_libdir}/libgecodegist.so
 %{_libdir}/libgecodeint.so
 %{_libdir}/libgecodekernel.so
 %{_libdir}/libgecodeminimodel.so
 %{_libdir}/libgecodesearch.so
 %{_libdir}/libgecodeset.so
 %{_libdir}/libgecodesupport.so
+
+%if %{with gist}
+%{_libdir}/libgecodegist.so
+%endif
 
 %if %{with doc}
 %files doc
