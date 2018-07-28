@@ -13,7 +13,7 @@
 Summary:	Generic constraint development environment
 Name:		gecode
 Version:	4.4.0
-Release:	1
+Release:	2
 License:	MIT
 Group:		Libraries
 Source0:	http://www.gecode.org/download/%{name}-%{version}.7z
