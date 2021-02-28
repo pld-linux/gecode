@@ -69,9 +69,7 @@ developing applications that use %{name}.
 Summary:	Documentation for %{name}
 Group:		Documentation
 Requires:	%{name} = %{version}-%{release}
-%if "%{_rpmversion}" >= "5"
 BuildArch:	noarch
-%endif
 
 %description doc
 The %{name}-doc package contains documentation files for %{name}.
@@ -80,9 +78,7 @@ The %{name}-doc package contains documentation files for %{name}.
 Summary:	Example code for %{name}
 Group:		Documentation
 Requires:	%{name} = %{version}-%{release}
-%if "%{_rpmversion}" >= "5"
 BuildArch:	noarch
-%endif
 
 %description examples
 The %{name}-examples package contains example code for %{name}.
