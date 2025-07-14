@@ -85,7 +85,7 @@ The %{name}-examples package contains example code for %{name}.
 
 %prep
 %setup -q
-%patch0 -p1
+%patch -P0 -p1
 
 # Fix permissions
 find . -name '*.hh' -exec chmod 0644 '{}' \;
